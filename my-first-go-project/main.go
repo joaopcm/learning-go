@@ -61,6 +61,10 @@ func main() {
 	takeInt64(x)
 	takeString("foo")
 	takeFloat64(x)
+
+	// Arrays
+	arr := [10]int{5: 400, 9: 11}
+	fmt.Println(arr)
 }
 
 func takeFloat64(x float64) {
