@@ -1,7 +1,9 @@
 package main
 
 import (
+	"errors"
 	"fmt"
+	"math"
 	myPackage "myFirstGoProject/my-package"
 	"strconv"
 )
@@ -77,6 +79,24 @@ func main() {
 	for range 10 { // or "for i := range 10 {" if you want to use the index
 		fmt.Println("hi!")
 	}
+
+	// IF conditions
+	if x := math.Sqrt(4); x < 1 {
+		fmt.Println(x)
+	} else if x > 0 {
+		fmt.Println("x is greater than 0")
+	} else {
+		fmt.Println("else statement!")
+	}
+
+	if err := doError(); err != nil {
+		fmt.Println(err)
+	}
+
+}
+
+func doError() error {
+	return errors.New("error")
 }
 
 func takeFloat64(x float64) {
