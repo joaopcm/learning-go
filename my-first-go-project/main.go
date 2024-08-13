@@ -6,6 +6,7 @@ import (
 	"math"
 	myPackage "myFirstGoProject/my-package"
 	"strconv"
+	"time"
 )
 
 var globalAge int = 21
@@ -93,6 +94,40 @@ func main() {
 		fmt.Println(err)
 	}
 
+	// Switches
+	fmt.Println(isWeekend(time.Now()))
+
+	switch x := math.Sqrt(4); x {
+	case 2:
+		fmt.Println("two")
+	default:
+		fmt.Println("default")
+	}
+
+	do(1)
+	do("foo")
+	do(true)
+}
+
+func do(x any) {
+	switch t := x.(type) {
+	case int:
+		fmt.Println("int")
+	case string:
+		fmt.Println("string")
+		takeString(t)
+	default:
+		fmt.Println("default")
+	}
+}
+
+func isWeekend(x time.Time) bool {
+	switch x.Weekday() {
+		case time.Sunday, time.Saturday:
+			return true
+		default:
+			return false
+	}
 }
 
 func doError() error {
