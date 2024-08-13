@@ -40,15 +40,15 @@ func main() {
 	// fmt.Println(slice, slice == nil)
 
 	// Loop and append a slice
-	resultsFromApi := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
-	movies := make([]string, 0, len(resultsFromApi))
-	for _, id := range resultsFromApi {
-		movie := moviesFromDb[id]
-		fmt.Println(len(movies), cap(movies))
-		movies = append(movies, movie)
-		fmt.Println(len(movies), cap(movies))
-	}
-	fmt.Println(movies)
+	// resultsFromApi := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+	// movies := make([]string, 0, len(resultsFromApi))
+	// for _, id := range resultsFromApi {
+	// 	movie := moviesFromDb[id]
+	// 	fmt.Println(len(movies), cap(movies))
+	// 	movies = append(movies, movie)
+	// 	fmt.Println(len(movies), cap(movies))
+	// }
+	// fmt.Println(movies)
 
 	// Full Slice Expression
 	// arr := [5]int{1, 2, 3, 4, 5}
@@ -63,6 +63,40 @@ func main() {
 	// slice := []int{1, 2, 3, 4}
 	// foo(slice)
 	// fmt.Println(slice)
+
+	// Maps
+	// m := make(map[string]string)
+	// m["João"] = "Melo"
+	// value, ok := m["João"]
+	// fmt.Println(value, ok)
+	// delete(m, "João")
+	// value, ok = m["João"]
+	// fmt.Println(value, ok)
+
+	m := map[string]string{
+		"Pedro": "Pessoa",
+		"João":  "Melo",
+	}
+	// clear(m)
+	// fmt.Println(m)
+
+	// 	f := math.NaN()
+	// 	f2 := math.NaN()
+	// 	m := map[float64]string{
+	// 		f:  "João",
+	// 		f2: "Melo",
+	// 	}
+	// 	value, ok := m[f2]
+	// 	fmt.Println(m, value, ok)
+	// 	delete(m, f2)
+	// 	value, ok = m[f2]
+	// 	fmt.Println(m, value, ok)
+	// 	clear(m)
+	// 	fmt.Println(m)
+
+	for k, v := range m {
+		fmt.Println(k, v)
+	}
 }
 
 // func foo(slice []int) {
