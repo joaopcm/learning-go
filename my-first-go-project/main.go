@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	myPackage "myFirstGoProject/my-package"
+	"strconv"
 )
 
 var globalAge int = 21
@@ -39,6 +40,43 @@ func main() {
 	firstName := "João"
 	var lastName string = "Melo"
 	fmt.Println(firstName, lastName, globalAge)
+
+	// Type and constant system
+	// Basic types
+	// bool - true or false
+	// int int8 int16 int32 int64 - signed numbers (positive and negative)
+	// uint uint8 uint16 uint32 uint64 uintptr (low-level programming) - unsigned numbers (only positive numbers)
+	// byte - same as uint8
+	// rune - same as int32
+	// float32 float64
+	// complex64 complex128
+	// string
+
+	// Converting an int to a string without converting to its rune representation
+	fmt.Println(formatIntToString(10))
+
+	// Constants
+	const x = 11
+	takeInt32(x)
+	takeInt64(x)
+	takeString("foo")
+	takeFloat64(x)
+}
+
+func takeFloat64(x float64) {
+	fmt.Println(x)
+}
+
+func takeInt32(x int32) {
+	fmt.Println(x)
+}
+
+func takeInt64(x int64) {
+	fmt.Println(x)
+}
+
+func takeString(x string) {
+	fmt.Println(x)
 }
 
 func sayHi() {
@@ -73,4 +111,8 @@ func variaticSum(nums ...int) int {
 		out += num
 	}
 	return out
+}
+
+func formatIntToString(num int) string {
+	return strconv.FormatInt(int64(num), 10)
 }
