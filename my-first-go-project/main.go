@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math"
 	myPackage "myFirstGoProject/my-package"
+	"os"
 	"strconv"
 	"time"
 )
@@ -107,6 +108,22 @@ func main() {
 	do(1)
 	do("foo")
 	do(true)
+
+	// Defer statement
+	doDefer()
+}
+
+var files = []string{"foo.txt", "bar.txt", "baz.txt"}
+func doDefer() {
+	for _, f := range files {
+		func () {
+			file, err := os.Open(f)
+			if err != nil {
+				fmt.Println(err)
+			}
+			defer file.Close()
+		}()
+	}
 }
 
 func do(x any) {
