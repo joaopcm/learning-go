@@ -65,6 +65,18 @@ func main() {
 	// Arrays
 	arr := [10]int{5: 400, 9: 11}
 	fmt.Println(arr)
+
+	// Loops
+	loopArr := [10]int{1,2,3,4,5,6,7,8,9,10}
+	for idx, value := range loopArr {
+		fmt.Println(idx, value)
+	}
+
+	// Since Go 1.22
+	// Iterate over an int
+	for range 10 { // or "for i := range 10 {" if you want to use the index
+		fmt.Println("hi!")
+	}
 }
 
 func takeFloat64(x float64) {
