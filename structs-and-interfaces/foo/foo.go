@@ -9,3 +9,7 @@ type Foo struct {
 func (Foo) Bar() {
 	fmt.Println("Bar")
 }
+
+type Interface interface {
+	InterfaceMethod()
+}
