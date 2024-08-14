@@ -5,43 +5,45 @@ import (
 	"fmt"
 )
 
-type User struct {
-	foo string
-}
-
-func (u User) Foo() {
-	fmt.Println(u.foo)
-}
-
-func NewUser(wantError bool) (*User, error) {
-	if wantError {
-		return nil, errors.New("error")
-	}
-	return &User{}, nil
-}
-
 func main() {
-	user, err := NewUser(true)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	user.Foo()
-
-	// a := 10
-	// b := 0
-	// res, err := divide(a, b)
-	// if err != nil {
+	// err := foo()
+	// if err != nil && errors.Is(err, AnyError) {
 	// 	fmt.Println(err)
 	// 	return
 	// }
-	// fmt.Println(res)
+
+	err := c()
+	fmt.Println(err)
+	fmt.Println(errors.Is(err, AnyError))
+	fmt.Println(errors.Is(err, AnyError2))
 }
 
-// func divide(a, b int) (int, error) {
-// 	if b == 0 {
-// 		return 0, errors.New("cannot divide by zero")
-// 	}
+var AnyError = errors.New("any error")
+var AnyError2 = errors.New("any error 2")
 
-// 	return a / b, nil
-// }
+func a() error { return AnyError }
+func b() error { return AnyError2 }
+func c() error {
+	var errorResult error
+	if err := a(); err != nil {
+		errorResult = errors.Join(errorResult, err)
+	}
+
+	if err := b(); err != nil {
+		errorResult = errors.Join(errorResult, err)
+	}
+
+	return errorResult
+}
+
+func foo() error {
+	err := bar()
+	if err != nil {
+		return fmt.Errorf("foo error: %w", err)
+	}
+	return nil
+}
+
+func bar() error {
+	return AnyError
+}
