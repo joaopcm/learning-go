@@ -14,8 +14,11 @@
 package main
 
 import (
+	"context"
+	"errors"
 	"fmt"
 	"net/http"
+	"net/http/httptest"
 	"sync"
 	"time"
 )
@@ -42,17 +45,36 @@ func concurrentlyCallGoogle() {
 	var wg sync.WaitGroup
 	wg.Add(n)
 
+	ctx := context.Background()
+	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
+	defer cancel()
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		time.Sleep(10 * time.Second)
+		fmt.Println("ok from server")
+	}))
+	defer server.Close()
+
 	for range n {
-		go func() {
+		go func(ctx context.Context) {
 			defer wg.Done()
 
-			res, err := http.Get("https://google.com")
+			req, err := http.NewRequestWithContext(ctx, "GET", server.URL, nil)
 			if err != nil {
+				panic(err)
+			}
+
+			res, err := http.DefaultClient.Do(req)
+			if err != nil {
+				if errors.Is(err, context.DeadlineExceeded) {
+					fmt.Println("timeout")
+					return
+				}
 				panic(err)
 			}
 			defer res.Body.Close()
 			fmt.Println("ok from concurrent approach!")
-		}()
+		}(ctx)
 	}
 
 	wg.Wait()
@@ -60,6 +82,6 @@ func concurrentlyCallGoogle() {
 }
 
 func main() {
-	sequentiallyCallGoogle()
+	// sequentiallyCallGoogle()
 	concurrentlyCallGoogle()
 }
